@@ -1,0 +1,5 @@
+# /etc/conf.d/portage: config file for /etc/init.d/portage
+
+# where do you store your tarball of the portage tree?
+
+PORTAGE_TARBALL="/mnt/windata/portage.tar.gz"
