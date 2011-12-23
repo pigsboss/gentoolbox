@@ -1,0 +1,33 @@
+#!/sbin/runscript
+
+depend() {
+	need localmount lvm
+}
+
+start() {
+	ebegin "Activate portage tree on tmpfs."
+	cd /usr/portage/
+	umount distfiles
+	tar czf $PORTAGE_TARBALL ./
+	cd /usr
+	umount portage
+	mount tmpfs -t tmpfs -o mode=755,size=2g portage
+	cd portage
+	tar xzpf $PORTAGE_TARBALL ./
+	mount distfiles
+	eend $?
+}
+
+stop() {
+	ebegin "Deactivate portage tree on tmpfs and save changes to static filesystem."
+	cd /usr/portage
+	umount distfiles
+	tar czf $PORTAGE_TARBALL ./
+	cd /usr
+	umount portage
+	mount portage
+	cd portage
+	tar xzpf $PORTAGE_TARBALL ./
+	mount distfiles
+	eend $?
+}
