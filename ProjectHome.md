@@ -1,0 +1,1 @@
+This is a gentoo and openrc related  toolbox mainly aimed to speed-up several daily-used tasks.
